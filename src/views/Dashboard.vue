@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <div class="w-1/2 sm:w-1/2 m-5">
-      <div class="flex flex-col justify-center items-center w-screen">
-        <p class="text-gray-100 md:text-5xl text-2xl font-bold text-left mb-10">
-          DASHBOARD
-        </p>
-        <Stalk
-          v-for="(stalk, index) in tabStalks"
-          :key="index"
-          :name="stalk.name"
-          :status="stalk.status"
-          :untilNextScan="stalk.untilNextScan"
-          :img="stalk.img"
-        ></Stalk>
-      </div>
+  <div class="flex justify-center">
+    <div class="w-2/3 md:w-4/5 m-5 flex flex-col justify-center items-center">
+      <p class="text-gray-100 md:text-5xl text-2xl font-bold text-left mb-10">
+        DASHBOARD
+      </p>
+      <Stalk
+        class="m-5"
+        v-for="(stalk, index) in tabStalks"
+        :key="index"
+        :name="stalk.name"
+        :online="stalk.online"
+        :untilNextScan="stalk.untilNextScan"
+        :img="stalk.img"
+      ></Stalk>
     </div>
   </div>
 </template>
@@ -47,9 +46,15 @@ export default {
       this.tabStalks = [
         {
           name: "LeikOwO",
-          status: "Offline",
+          online: false,
           untilNextScan: 1,
           img: "https://mc-heads.net/avatar/LeikOwO/100",
+        },
+        {
+          name: "Refactor",
+          online: true,
+          untilNextScan: 2,
+          img: "https://mc-heads.net/avatar/Refactor/100",
         },
       ];
     },

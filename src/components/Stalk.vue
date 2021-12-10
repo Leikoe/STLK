@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!online"
     class="bg-gray-800 h-30 w-4/5 rounded-full flex justify-between items-center"
   >
     <div class="flex items-center">
@@ -11,13 +12,52 @@
 
       <div class="text-left text-gray-100 text-xl font-medium">
         <h1 class="text-3xl font-bold">{{ name }}</h1>
-        <h2 class="text-2xl font-medium">{{ status }}</h2>
+        <h2 class="text-2xl font-medium">
+          {{ online ? "Online" : "Offline" }}
+        </h2>
         <h3 class="text-xl font-thin">until next scan: {{ untilNextScan }}</h3>
       </div>
     </div>
 
-    <Button class="bouton m-10 text-3xl cursor-pointer" text="Skycrypt">
-    </Button>
+    <a :href="url">
+      <Button
+        :border="!online"
+        :inverted="!online"
+        class="bouton m-10 text-3xl cursor-pointer"
+        text="Skycrypt"
+      >
+      </Button>
+    </a>
+  </div>
+  <div
+    v-else
+    class="bg-gray-100 h-30 w-4/5 rounded-full flex justify-between items-center"
+  >
+    <div class="flex items-center">
+      <div
+        class="border-4 border-gray-800 p-4 border-solid m-5 rounded-full bg-gray-100"
+      >
+        <img class="rounded w-12 h-12" :src="img" alt="head render" />
+      </div>
+
+      <div class="text-left text-gray-800 text-xl font-medium">
+        <h1 class="text-3xl font-bold">{{ name }}</h1>
+        <h2 class="text-2xl font-medium">
+          {{ online ? "Online" : "Offline" }}
+        </h2>
+        <h3 class="text-xl font-thin">until next scan: {{ untilNextScan }}</h3>
+      </div>
+    </div>
+
+    <a :href="url">
+      <Button
+        :border="online"
+        :inverted="!online"
+        class="bouton m-10 text-3xl cursor-pointer"
+        text="Skycrypt"
+      >
+      </Button>
+    </a>
   </div>
 </template>
 
@@ -28,6 +68,13 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    // a computed getter
+    url: function () {
+      // `this` points to the vm instance
+      return "https://sky.shiiyu.moe/stats/" + this.name;
+    },
+  },
   components: {
     Button,
   },
@@ -36,9 +83,9 @@ export default {
       type: String,
       default: "Null",
     },
-    status: {
-      type: String,
-      default: "Offline",
+    online: {
+      type: Boolean,
+      default: false,
     },
     untilNextScan: {
       type: Number,
@@ -53,4 +100,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* .online {
+  @apply ;
+} */
+</style>
